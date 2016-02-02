@@ -22,7 +22,6 @@
 
 #import "VENTokenField.h"
 
-#import <FrameAccessor/FrameAccessor.h>
 #import "VENToken.h"
 #import "VENBackspaceTextField.h"
 
