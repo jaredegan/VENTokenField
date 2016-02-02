@@ -330,6 +330,10 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 
 
 #pragma mark - Private
+- (void)setHeight:(CGFloat)height
+{
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, height);
+}
 
 - (CGFloat)heightForToken
 {
@@ -363,9 +367,8 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
         _toLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _toLabel.textColor = self.toLabelTextColor;
         _toLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15.5];
-        _toLabel.x = 0;
         [_toLabel sizeToFit];
-        [_toLabel setHeight:[self heightForToken]];
+        _toLabel.frame = CGRectMake(0, _toLabel.frame.origin.y, _toLabel.frame.size.width, [self heightForToken]);
     }
     if (![_toLabel.text isEqualToString:_toLabelText]) {
         _toLabel.text = _toLabelText;
@@ -491,7 +494,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 - (void)focusInputTextField
 {
     CGPoint contentOffset = self.scrollView.contentOffset;
-    CGFloat targetY = self.inputTextField.y + [self heightForToken] - self.maxHeight;
+    CGFloat targetY = self.inputTextField.frame.origin.y + [self heightForToken] - self.maxHeight;
     if (targetY > contentOffset.y) {
         [self.scrollView setContentOffset:CGPointMake(contentOffset.x, targetY) animated:NO];
     }
